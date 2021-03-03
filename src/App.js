@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Todo({todo, index, completeTodo, deleteTodo}) {
   return <div style={{textDecoration: todo.isCompleted ? 'line-through' : ""}} className="todo">
@@ -28,27 +28,39 @@ function Todoform({addtodo}) {
 
 }
 
-
 function App() {
-const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem('todos'));
+    if (todos) {
+      setTodos(todos);
+    }
+  }, []);
 
 const addtodo = text => {
   const newTodos = [...todos, {text}];
-  console.log(newTodos)
   setTodos(newTodos)
   console.log(todos)
+  let todosJSON = JSON.stringify(newTodos);
+  localStorage.setItem('todos', todosJSON)
 }
 
 const completeTodo = index => {
   const newTodos = [...todos];
   newTodos[index].isCompleted = true;
   setTodos(newTodos);
+  let todosJSON = JSON.stringify(newTodos);
+  localStorage.setItem('todos', todosJSON)
+
 }
 
 const deleteTodo = index => {
   const newTodos = [...todos];
   newTodos.splice(index, 1)
   setTodos(newTodos);
+  let todosJSON = JSON.stringify(newTodos);
+  localStorage.setItem('todos', todosJSON)
 }
 
 return <div className="app">

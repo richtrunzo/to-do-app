@@ -2,13 +2,15 @@ import './App.css';
 import React, { useState, useEffect } from "react";
 
 function Todo({todo, index, completeTodo, deleteTodo}) {
-  return <div style={{textDecoration: todo.isCompleted ? 'line-through' : ""}} className="todo">
-          {todo.text}
-          <div>
-            <button onClick={() => completeTodo(index)}>Complete</button>
-            <button onClick={() => deleteTodo(index)}>Delete</button>
+  return <div style={{textDecoration: todo.isCompleted ? 'line-through' : ""}} className="todo d-flex justify-content-center bg-light bg-gradient mt-3 rounded-pill dshadow animate__animated animate__bounceInLeft
+">
+           <div className="text">{todo.text}</div>
+          <div className="mt-2 mx-4">
+            <button className="btn btn-lg btn-outline-success" onClick={() => completeTodo(index)}>Complete</button>
+            <button className="btn btn-lg btn-outline-danger ms-2" onClick={() => deleteTodo(index)}>Delete</button>
           </div>
         </div>
+
 }
 
 function Todoform({addtodo}) {
@@ -22,8 +24,8 @@ function Todoform({addtodo}) {
   }
 
 
-  return (<form onSubmit={handleSubmit}>
-          <input type="text" value={value} className="input" onChange={e => setvalue(e.target.value)}></input>
+  return (<form className="d-flex justify-content-center mt-3" onSubmit={handleSubmit}>
+          <input type="text" value={value} placeholder="Add a todo..." className="form-width text" onChange={e => setvalue(e.target.value)}></input>
         </form>)
 
 }
@@ -64,7 +66,8 @@ const deleteTodo = index => {
 }
 
 return <div className="app">
-        <div className="todolist">
+        <div className="head mx-auto">
+          <h1 className="text-center mt-2 mb-3 head-text">Coding Todos</h1>
           {todos.map((todo, index) => {
             return <Todo key={index} index={index} todo={todo} completeTodo={completeTodo} deleteTodo={deleteTodo} />
           })}
